@@ -1,10 +1,12 @@
 package com.example.firebaseauth.viewmodel
+
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 import androidx.core.content.edit
+
 class AuthViewModel : ViewModel() {
 
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
@@ -54,23 +56,22 @@ class AuthViewModel : ViewModel() {
                     setLoggedIn(context, true)
                     _authState.value = AuthState.Authenticated
                 } else {
-                    _authState.value =
-                        AuthState.Error(task.exception?.message ?: "Something went wrong")
+                    _authState.value = AuthState.Error(task.exception?.message ?: "Something went wrong")
                 }
             }
     }
 
-    fun signout(context: Context) {
+    fun logout(context: Context) {
         auth.signOut()
         setLoggedIn(context, false)
         _authState.value = AuthState.Unauthenticated
     }
 
+
     fun setLoggedIn(context: Context, isLoggedIn: Boolean) {
         val prefs = context.getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
         prefs.edit { putBoolean("isLoggedIn", isLoggedIn) }
     }
-
 }
 
 sealed class AuthState {
