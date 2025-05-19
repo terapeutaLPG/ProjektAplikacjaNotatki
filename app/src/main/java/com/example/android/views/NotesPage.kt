@@ -63,19 +63,51 @@ fun NotesPage(
                         .padding(vertical = 8.dp)
                 ) {
                     Column(Modifier.padding(16.dp)) {
-                        Text(note.content ?: "Brak treści", style = MaterialTheme.typography.bodyLarge)
+                        Text(
+                            note.content ?: "Brak treści",
+                            style = MaterialTheme.typography.bodyLarge
+                        )
                         Spacer(Modifier.height(4.dp))
+
                         val formattedTime = remember(note.timestamp) {
-                            SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.getDefault()).format(Date(note.timestamp))
+                            SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.getDefault()).format(
+                                Date(
+                                    note.timestamp
+                                )
+                            )
                         }
+
                         Text(
                             text = "Utworzono: $formattedTime",
                             style = MaterialTheme.typography.bodySmall,
                             color = Color.Gray
                         )
+
+                        Spacer(Modifier.height(8.dp))
+                        Row {
+                            Button(onClick = {
+                                notesViewModel.selectNote(note)
+                                navController.navigate("edit_note")
+                            }) {
+                                Text("Edytuj")
+                            }
+
+                            Spacer(modifier = Modifier.width(8.dp))
+
+                            Button(
+                                onClick = { notesViewModel.deleteNote(note.id) },
+                                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error)
+                            ) {
+                                Text("Usuń")
+                            }
+                        }
                     }
                 }
             }
         }
+
     }
 }
+
+
+
