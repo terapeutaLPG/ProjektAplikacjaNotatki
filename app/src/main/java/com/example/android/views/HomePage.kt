@@ -15,6 +15,9 @@ import com.example.firebaseauth.viewmodel.NotesViewModel
 import com.example.android.routes.Routes
 import java.text.SimpleDateFormat
 import java.util.*
+import android.content.Intent
+import android.provider.CalendarContract
+import androidx.compose.ui.platform.LocalContext
 
 @Composable
 fun HomePage(
@@ -104,7 +107,7 @@ fun HomePage(
                         Row {
                             Button(onClick = {
                                 notesViewModel.selectNote(note)
-                                navController.navigate(Routes.edit_note)
+                                navController.navigate("edit_note")
                             }) {
                                 Text("Edytuj")
                             }
@@ -117,7 +120,26 @@ fun HomePage(
                             ) {
                                 Text("Usuń")
                             }
+
+                            Spacer(modifier = Modifier.width(8.dp))
+
+                            // 💡 Tutaj dodaj przycisk do kalendarza:
+                            val context = LocalContext.current
+
+                            Button(onClick = {
+                                val intent = Intent(Intent.ACTION_INSERT).apply {
+                                    data = CalendarContract.Events.CONTENT_URI
+                                    putExtra(CalendarContract.Events.TITLE, note.title ?: "Notatka")
+                                    putExtra(CalendarContract.Events.DESCRIPTION, note.content ?: "")
+                                    putExtra(CalendarContract.Events.EVENT_LOCATION, "Wilamowice Nyskie")
+                                    putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, true)
+                                }
+                                context.startActivity(intent)
+                            }) {
+                                Text("Dodaj do kalendarza")
+                            }
                         }
+
                     }
                 }
             }
