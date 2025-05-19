@@ -23,8 +23,9 @@ fun HomePage(
     notesViewModel: NotesViewModel
 ) {
     val notesState by notesViewModel.notes.collectAsState()
+    var newTitle by remember { mutableStateOf("") }
+    var newContent by remember { mutableStateOf("") }
 
-    // Dodano – ładowanie notatek
     LaunchedEffect(Unit) {
         notesViewModel.loadNotes()
     }
@@ -36,6 +37,38 @@ fun HomePage(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text("Twoje Notatki", fontSize = 28.sp)
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        // Nowy formularz
+        OutlinedTextField(
+            value = newTitle,
+            onValueChange = { newTitle = it },
+            label = { Text("Tytuł notatki") },
+            modifier = Modifier.fillMaxWidth()
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+
+        OutlinedTextField(
+            value = newContent,
+            onValueChange = { newContent = it },
+            label = { Text("Treść notatki") },
+            modifier = Modifier.fillMaxWidth()
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Button(
+            onClick = {
+                if (newContent.isNotBlank()) {
+                    notesViewModel.addNote(newTitle.ifBlank { "Bez tytułu" }, newContent)
+                    newTitle = ""
+                    newContent = ""
+                }
+            },
+            modifier = Modifier.align(Alignment.End)
+        ) {
+            Text("Dodaj")
+        }
 
         Spacer(modifier = Modifier.height(16.dp))
 
