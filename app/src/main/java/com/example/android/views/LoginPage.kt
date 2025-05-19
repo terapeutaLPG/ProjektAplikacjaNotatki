@@ -6,7 +6,9 @@ import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.PersonOutline
@@ -56,10 +58,12 @@ fun LoginPage(
         }
     }
 
+    // SCROLLABLE COLUMN:
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
-            .padding(horizontal = 19.dp),
+            .padding(horizontal = 19.dp)
+            .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Spacer(modifier = Modifier.height(62.dp))
@@ -179,7 +183,6 @@ fun LoginPage(
                     errorMessage = ""
                     authViewModel.login(context, email.trim(), password)
                 }
-
             },
             modifier = Modifier
                 .width(390.dp)
@@ -208,4 +211,3 @@ fun LoginPage(
         )
     }
 }
-

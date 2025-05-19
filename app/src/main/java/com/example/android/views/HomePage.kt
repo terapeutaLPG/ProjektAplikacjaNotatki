@@ -145,9 +145,11 @@ fun HomePage(
             }
         }
 
+        val context = LocalContext.current
+
         Button(
             onClick = {
-                authViewModel.logout(navController.context)
+                authViewModel.logout(context)
                 navController.navigate(Routes.login) {
                     popUpTo(0)
                 }
@@ -156,5 +158,7 @@ fun HomePage(
         ) {
             Text("Wyloguj się")
         }
+
+
     }
 }
