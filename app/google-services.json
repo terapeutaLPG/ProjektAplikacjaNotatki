@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "963026349614",
+    "project_id": "androidigor-ce682",
+    "storage_bucket": "androidigor-ce682.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:963026349614:android:54ff4e001731b1bfd179bf",
+        "android_client_info": {
+          "package_name": "com.example.android"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDh2DX3iEwZ9z-_7Ju7d34Qg4P3GA5LyrE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
