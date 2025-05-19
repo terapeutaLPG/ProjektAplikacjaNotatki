@@ -1,5 +1,6 @@
 package com.example.android.views
 
+
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -29,6 +30,9 @@ import com.example.android.routes.Routes
 import com.example.firebaseauth.viewmodel.AuthState
 import com.example.firebaseauth.viewmodel.AuthViewModel
 import android.util.Patterns
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -45,8 +49,10 @@ fun SignupPage(
     var confirmPasswordVisible by remember { mutableStateOf(false) }
     var errorMessage by remember { mutableStateOf("") }
 
+
     val authState = authViewModel.authState.observeAsState()
     val context = LocalContext.current
+
 
     LaunchedEffect(authState.value) {
         when (authState.value) {
@@ -56,9 +62,12 @@ fun SignupPage(
                 (authState.value as AuthState.Error).message,
                 Toast.LENGTH_LONG
             ).show()
+
+
             else -> Unit
         }
     }
+
 
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
@@ -69,6 +78,7 @@ fun SignupPage(
                 .size(110.dp)
         )
 
+
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -77,7 +87,8 @@ fun SignupPage(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .align(Alignment.TopStart),
+                    .align(Alignment.TopStart)
+                    .verticalScroll(rememberScrollState()), // ← DODANE
                 horizontalAlignment = Alignment.Start
             ) {
                 Spacer(modifier = Modifier.height(24.dp))
@@ -90,6 +101,7 @@ fun SignupPage(
                     }
                 )
 
+
                 Spacer(modifier = Modifier.height(70.dp))
                 Text(
                     text = "Sign Up",
@@ -98,13 +110,18 @@ fun SignupPage(
                     color = Color(0xFF471AA0)
                 )
 
+
                 Spacer(modifier = Modifier.height(36.dp))
                 OutlinedTextField(
                     value = name,
                     onValueChange = { name = it },
                     placeholder = { Text("Full Name", color = Color.Gray) },
                     leadingIcon = {
-                        Icon(Icons.Default.PersonOutline, contentDescription = null, tint = Color(0xFF471AA0))
+                        Icon(
+                            Icons.Default.PersonOutline,
+                            contentDescription = null,
+                            tint = Color(0xFF471AA0)
+                        )
                     },
                     modifier = Modifier
                         .fillMaxWidth()
@@ -118,14 +135,20 @@ fun SignupPage(
                     singleLine = true
                 )
 
+
                 Spacer(modifier = Modifier.height(50.dp))
+
 
                 OutlinedTextField(
                     value = email,
                     onValueChange = { email = it },
                     placeholder = { Text("Email", color = Color.Gray) },
                     leadingIcon = {
-                        Icon(Icons.Default.Email, contentDescription = null, tint = Color(0xFF471AA0))
+                        Icon(
+                            Icons.Default.Email,
+                            contentDescription = null,
+                            tint = Color(0xFF471AA0)
+                        )
                     },
                     modifier = Modifier
                         .fillMaxWidth()
@@ -139,14 +162,20 @@ fun SignupPage(
                     singleLine = true
                 )
 
+
                 Spacer(modifier = Modifier.height(50.dp))
+
 
                 OutlinedTextField(
                     value = password,
                     onValueChange = { password = it },
                     placeholder = { Text("Password", color = Color.Gray) },
                     leadingIcon = {
-                        Icon(Icons.Default.Lock, contentDescription = null, tint = Color(0xFF471AA0))
+                        Icon(
+                            Icons.Default.Lock,
+                            contentDescription = null,
+                            tint = Color(0xFF471AA0)
+                        )
                     },
                     trailingIcon = {
                         IconButton(onClick = { passwordVisible = !passwordVisible }) {
@@ -170,14 +199,20 @@ fun SignupPage(
                     singleLine = true
                 )
 
+
                 Spacer(modifier = Modifier.height(50.dp))
+
 
                 OutlinedTextField(
                     value = confirmPassword,
                     onValueChange = { confirmPassword = it },
                     placeholder = { Text("Confirm Password", color = Color.Gray) },
                     leadingIcon = {
-                        Icon(Icons.Default.Lock, contentDescription = null, tint = Color(0xFF471AA0))
+                        Icon(
+                            Icons.Default.Lock,
+                            contentDescription = null,
+                            tint = Color(0xFF471AA0)
+                        )
                     },
                     trailingIcon = {
                         IconButton(onClick = { confirmPasswordVisible = !confirmPasswordVisible }) {
@@ -201,10 +236,12 @@ fun SignupPage(
                     singleLine = true
                 )
 
+
                 if (errorMessage.isNotEmpty()) {
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(text = errorMessage, color = Color.Red, fontSize = 12.sp)
                 }
+
 
                 Spacer(modifier = Modifier.height(50.dp))
                 Button(
@@ -230,7 +267,11 @@ fun SignupPage(
                 ) {
                     Text("Sign Up", color = Color.White, fontWeight = FontWeight.Bold)
                 }
+
+
+                Spacer(modifier = Modifier.height(30.dp))
             }
+
 
             Row(
                 modifier = Modifier
@@ -256,3 +297,4 @@ fun SignupPage(
         }
     }
 }
+
